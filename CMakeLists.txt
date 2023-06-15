@@ -2,13 +2,9 @@ cmake_minimum_required(VERSION 3.0.2)
 
 project(fhash Fortran)
 
-if(DEFINED CMAKE_Fortran_COMPILER_VERSION)
-  set(Fortran_MODULE_DIRECTORY include/fortran_modules/${CMAKE_Fortran_COMPILER_ID}/${CMAKE_Fortran_COMPILER_VERSION})
-else()
-  set(Fortran_MODULE_DIRECTORY include/fortran_modules/${CMAKE_Fortran_COMPILER_ID})
-endif()
-
-set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${Fortran_MODULE_DIRECTORY})
+if (NOT DEFINED CMAKE_Fortran_MODULE_DIRECTORY)
+    set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/fortran_modules)
+endif ()
 
 add_subdirectory(src)
 
