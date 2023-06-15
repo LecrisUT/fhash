@@ -4,6 +4,12 @@ project(fhash
         VERSION 0.2.1
         LANGUAGES Fortran)
 
+option(FHASH_TESTS "fhash: Build unit tests" ${PROJECT_IS_TOP_LEVEL})
+option(FHASH_INSTALL "fhash: Install project" ${PROJECT_IS_TOP_LEVEL})
+option(FHASH_SHARED_LIBS "fhash: Build as a shared library" ${PROJECT_IS_TOP_LEVEL})
+option(FHASH_TEST_COVERAGE "fhash: Test with coverage" OFF)
+mark_as_advanced(FHASH_TEST_COVERAGE)
+
 if (NOT DEFINED CMAKE_Fortran_MODULE_DIRECTORY)
     set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/fortran_modules)
 endif ()
