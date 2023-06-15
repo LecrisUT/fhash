@@ -17,32 +17,33 @@ set(BUILD_SHARED_LIBS ${FHASH_SHARED_LIBS})
 
 add_subdirectory(src)
 
-include(CMakePackageConfigHelpers)
+if (FHASH_INSTALL)
+    include(CMakePackageConfigHelpers)
+    # Add all targets to the build-tree export set
+    export(TARGETS fhash
+      FILE "${PROJECT_BINARY_DIR}/fhashTargets.cmake")
 
-# Add all targets to the build-tree export set
-export(TARGETS fhash
-  FILE "${PROJECT_BINARY_DIR}/fhashTargets.cmake")
+    # Export the package for use from the build-tree
+    # (this registers the build-tree with a global CMake-registry)
+    export(PACKAGE fhash)
 
-# Export the package for use from the build-tree
-# (this registers the build-tree with a global CMake-registry)
-export(PACKAGE fhash)
+    configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+      "${CMAKE_CURRENT_BINARY_DIR}/fhashConfig.cmake"
+      INSTALL_DESTINATION lib/cmake/fhash
+      )
 
-configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-  "${CMAKE_CURRENT_BINARY_DIR}/fhashConfig.cmake"
-  INSTALL_DESTINATION lib/cmake/fhash
-  )
+    install(FILES
+              "${CMAKE_CURRENT_BINARY_DIR}/fhashConfig.cmake"
+            DESTINATION lib/cmake/fhash
+    )
 
-install(FILES
-          "${CMAKE_CURRENT_BINARY_DIR}/fhashConfig.cmake"
-        DESTINATION lib/cmake/fhash
-)
+    install(DIRECTORY ${CMAKE_Fortran_MODULE_DIRECTORY}/ DESTINATION ${Fortran_MODULE_DIRECTORY})
 
-install(DIRECTORY ${CMAKE_Fortran_MODULE_DIRECTORY}/ DESTINATION ${Fortran_MODULE_DIRECTORY})
-
-install(EXPORT fhash
-  FILE fhashTargets.cmake
-  DESTINATION lib/cmake/fhash
-)
+    install(EXPORT fhash
+      FILE fhashTargets.cmake
+      DESTINATION lib/cmake/fhash
+    )
+endif ()
 
 # -------------------
 # Build documentation

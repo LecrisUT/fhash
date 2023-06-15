@@ -3,5 +3,7 @@ add_library(fhash ${FHASH_SOURCES})
 target_include_directories(fhash PUBLIC
   $<BUILD_INTERFACE:${CMAKE_Fortran_MODULE_DIRECTORY}>
   $<INSTALL_INTERFACE:${Fortran_MODULE_DIRECTORY}>)
-install(TARGETS fhash EXPORT fhash
-  LIBRARY DESTINATION lib ${CMAKE_INSTALL_LIBDIR})
+if (FHASH_INSTALL)
+    install(TARGETS fhash EXPORT fhash
+            LIBRARY DESTINATION lib ${CMAKE_INSTALL_LIBDIR})
+endif ()
