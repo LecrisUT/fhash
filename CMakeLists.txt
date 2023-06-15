@@ -16,37 +16,34 @@ endif ()
 set(BUILD_SHARED_LIBS ${FHASH_SHARED_LIBS})
 
 # Define main targets
-add_library(fhash)
+add_library(fhash_fhash)
+add_library(fhash::fhash ALIAS fhash_fhash)
 
 # Actual implementation
 add_subdirectory(src)
 
 if (FHASH_INSTALL)
     include(CMakePackageConfigHelpers)
-    # Add all targets to the build-tree export set
-    export(TARGETS fhash
-      FILE "${PROJECT_BINARY_DIR}/fhashTargets.cmake")
 
-    # Export the package for use from the build-tree
-    # (this registers the build-tree with a global CMake-registry)
-    export(PACKAGE fhash)
+    write_basic_package_version_file(fhashConfigVersion.cmake
+            VERSION ${PROJECT_VERSION}
+            COMPATIBILITY SameMinorVersion)
+    configure_package_config_file(
+            cmake/fhashConfig.cmake.in
+            fhashConfig.cmake
+            INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/fhash)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/fhashConfigVersion.cmake
+            ${CMAKE_CURRENT_BINARY_DIR}/fhashConfig.cmake
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/fhash
+            COMPONENT Spglib_Development)
 
-    configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-      "${CMAKE_CURRENT_BINARY_DIR}/fhashConfig.cmake"
-      INSTALL_DESTINATION lib/cmake/fhash
-      )
-
-    install(FILES
-              "${CMAKE_CURRENT_BINARY_DIR}/fhashConfig.cmake"
-            DESTINATION lib/cmake/fhash
-    )
-
-    install(DIRECTORY ${CMAKE_Fortran_MODULE_DIRECTORY}/ DESTINATION ${Fortran_MODULE_DIRECTORY})
-
-    install(EXPORT fhash
-      FILE fhashTargets.cmake
-      DESTINATION lib/cmake/fhash
-    )
+    install(EXPORT fhashTargets
+            FILE fhashTargets.cmake
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/fhash
+            COMPONENT fhash_Development)
+    export(EXPORT fhashTargets
+            FILE fhashTargets.cmake
+            NAMESPACE fhash::)
 endif ()
 
 # -------------------

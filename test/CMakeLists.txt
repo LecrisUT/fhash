@@ -18,8 +18,8 @@ target_sources(tests PRIVATE
         )
 
 
-target_link_libraries(tests PRIVATE fhash TestLite)
-target_link_libraries(main PRIVATE fhash TestLite tests)
+target_link_libraries(tests PRIVATE fhash_fhash TestLite)
+target_link_libraries(main PRIVATE fhash_fhash TestLite tests)
 
 add_test(main main)
 

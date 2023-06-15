@@ -1,4 +1,4 @@
-target_sources(fhash PRIVATE
+target_sources(fhash_fhash PRIVATE
         fhash.f90
         fhash_sll.f90
         fhash_data_container.f90
@@ -8,11 +8,11 @@ target_sources(fhash PRIVATE
         )
 
 
-target_include_directories(fhash PUBLIC
+target_include_directories(fhash_fhash PUBLIC
         $<BUILD_INTERFACE:${CMAKE_Fortran_MODULE_DIRECTORY}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 if (FHASH_INSTALL)
-    install(TARGETS fhash
+    install(TARGETS fhash_fhash
             EXPORT fhashTargets
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT fhash_Runtime NAMELINK_COMPONENT fhash_Development
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT fhash_Development
@@ -23,7 +23,7 @@ if (FHASH_INSTALL)
 endif ()
 
 if (FHASH_TEST_COVERAGE)
-    target_compile_options(fhash PRIVATE --coverage -ftest-forall-temp)
+    target_compile_options(fhash_fhash PRIVATE --coverage -ftest-forall-temp)
 endif ()
 
 add_subdirectory(fhash_key)

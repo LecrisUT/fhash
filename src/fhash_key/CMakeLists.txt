@@ -1,4 +1,4 @@
-target_sources(fhash PRIVATE
+target_sources(fhash_fhash PRIVATE
         base.f90
         int32.f90
         int64.f90
