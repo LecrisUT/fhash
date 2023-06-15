@@ -15,6 +15,10 @@ if (NOT DEFINED CMAKE_Fortran_MODULE_DIRECTORY)
 endif ()
 set(BUILD_SHARED_LIBS ${FHASH_SHARED_LIBS})
 
+# Define main targets
+add_library(fhash)
+
+# Actual implementation
 add_subdirectory(src)
 
 if (FHASH_INSTALL)
