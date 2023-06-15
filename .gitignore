@@ -3,3 +3,9 @@ api-doc*
 *~
 .\#*
 \#*\#
+
+### JetBrains template
+cmake-build-*/
+.idea
+
+### Project specific
