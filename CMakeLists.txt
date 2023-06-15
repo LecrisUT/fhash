@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(fhash Fortran)
+project(fhash
+        VERSION 0.2.1
+        LANGUAGES Fortran)
 
 if (NOT DEFINED CMAKE_Fortran_MODULE_DIRECTORY)
     set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/fortran_modules)
