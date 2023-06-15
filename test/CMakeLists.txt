@@ -1,14 +1,14 @@
-add_library(TestLite)
-add_library(tests)
-add_executable(main main.f90)
+add_library(fhash_TestLite)
+add_library(fhash_tests)
+add_executable(fhash_main_tests main.f90)
 
-target_sources(TestLite PRIVATE
+target_sources(fhash_TestLite PRIVATE
         TestLite.f90
         TestLite_suite.f90
         TestLite_error.f90
         )
 
-target_sources(tests PRIVATE
+target_sources(fhash_tests PRIVATE
         test_container.f90
         test_fnv.f90
         test_key.f90
@@ -18,13 +18,13 @@ target_sources(tests PRIVATE
         )
 
 
-target_link_libraries(tests PRIVATE fhash_fhash TestLite)
-target_link_libraries(main PRIVATE fhash_fhash TestLite tests)
+target_link_libraries(fhash_tests PRIVATE fhash_fhash fhash_TestLite)
+target_link_libraries(fhash_main_tests PRIVATE fhash_fhash fhash_TestLite fhash_tests)
 
-add_test(main main)
+add_test(main fhash_main_tests)
 
 add_custom_target(all_tests ALL
-  DEPENDS main)
+  DEPENDS fhash_main_tests)
 
 add_custom_command(
      TARGET all_tests
