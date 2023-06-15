@@ -13,6 +13,7 @@ mark_as_advanced(FHASH_TEST_COVERAGE)
 if (NOT DEFINED CMAKE_Fortran_MODULE_DIRECTORY)
     set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/fortran_modules)
 endif ()
+set(BUILD_SHARED_LIBS ${FHASH_SHARED_LIBS})
 
 add_subdirectory(src)
 
