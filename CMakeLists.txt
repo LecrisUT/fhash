@@ -139,5 +139,7 @@ if ( NOT SKIP_DOC_GEN )
 
 endif()
 
-enable_testing()
-add_subdirectory(test)
+if (FHASH_TESTS)
+    enable_testing()
+    add_subdirectory(test)
+endif ()
