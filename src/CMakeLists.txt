@@ -16,4 +16,8 @@ if (FHASH_INSTALL)
             LIBRARY DESTINATION lib ${CMAKE_INSTALL_LIBDIR})
 endif ()
 
+if (FHASH_TEST_COVERAGE)
+    target_compile_options(fhash PRIVATE --coverage -ftest-forall-temp)
+endif ()
+
 add_subdirectory(fhash_key)
